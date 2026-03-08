@@ -19,9 +19,11 @@
   --text-dim: #94a3b8;
   /* Slate 400 */
 
-  --cell-size: 20px;
   --board-columns: 20;
   --board-rows: 20;
+  --board-max-size: 400px;
+  --board-size: min(calc(100vw - 2rem), var(--board-max-size));
+  --cell-size: calc(var(--board-size) / var(--board-columns));
 }
 
 * {
@@ -152,9 +154,11 @@ h3,
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: var(--cell-size) var(--cell-size);
 
-  /* Set exact dimensions based on cells */
-  width: calc(var(--board-columns) * var(--cell-size));
-  height: calc(var(--board-rows) * var(--cell-size));
+  /* Set exact dimensions based on cell size */
+  width: var(--board-size);
+  height: var(--board-size);
+  box-sizing: content-box;
+  /* Prevent border from cutting off content */
 }
 
 .shake {
@@ -225,6 +229,26 @@ h3,
   to {
     transform: scale(1.1);
     box-shadow: 0 0 20px var(--food-glow);
+  }
+}
+
+.shrink-food {
+  background-color: #3b82f6;
+  /* Blue 500 */
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+  border-radius: 50%;
+  animation: pulse-fast 0.5s infinite alternate;
+}
+
+@keyframes pulse-fast {
+  from {
+    transform: scale(0.8);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  }
+
+  to {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 1);
   }
 }
 
@@ -463,10 +487,6 @@ h3,
   .d-pad-btn {
     width: 55px;
     height: 55px;
-  }
-
-  :root {
-    --cell-size: 16px;
   }
 
   .game-title {

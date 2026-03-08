@@ -191,7 +191,7 @@ function App() {
         if (navigator.vibrate) navigator.vibrate(50); // small haptic pop
         playSound('eat');
         setScore((prevScore) => {
-          const newScore = prevScore + 10;
+          const newScore = prevScore + (10 * combo);
           const topScore = leaderboard.length > 0 ? leaderboard[0].score : 0;
           if (newScore > topScore && topScore > 0 && !hasPassedHighScore) {
             setHasPassedHighScore(true);
@@ -201,7 +201,23 @@ function App() {
           }
           return newScore;
         });
-        setFood(generateFood(newSnake));
+
+        const nextFood = generateFood(newSnake);
+        setFood(nextFood);
+
+        // Handle Combo Logic
+        if (comboTimer > 0) {
+          setCombo(prev => Math.min(prev + 1, 4)); // Max 4x
+        }
+        setComboTimer(100);
+
+        // Handle Shrink Food Generation (10% chance)
+        if (!shrinkFood && newSnake.length > 8 && Math.random() < 0.1) {
+          const possibleShrink = generateFood(newSnake);
+          if (possibleShrink.x !== nextFood.x || possibleShrink.y !== nextFood.y) {
+            setShrinkFood(possibleShrink);
+          }
+        }
         // Increase speed slightly
         setSpeed((prevSpeed) => {
           // Speed up slightly every 5 apples to make it ~15% faster at those intervals
