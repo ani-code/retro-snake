@@ -36,7 +36,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Retro Snake Gameplay Demo](file:///Users/anirudhkuthiala/.gemini/antigravity/brain/c80ed8c0-be18-4fd1-be57-fbb62cba87cb/snake_game_test_1772936179412.webp)
+![Retro Snake Gameplay Demo](public/demo.webp)
 
 Retro Snake is an homage to the legendary mobile game we all know and love, but built with a modern web stack and "juicy" game feel. It features a glowing dark-mode aesthetic, progressive difficulty, and responsive controls designed to feel authentic whether you're using a mechanical keyboard or swiping on your smartphone.
 
