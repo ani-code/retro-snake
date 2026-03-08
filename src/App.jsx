@@ -413,8 +413,8 @@ function App() {
         {/* Game Over Overlay */}
         {gameOver && (
           <div className="overlay">
-            <h2 className="game-over-title arcade-font">GAME OVER</h2>
-            <p style={{ margin: '1rem 0', fontSize: '1.2rem' }}>Score: <span style={{ color: 'var(--snake-color)' }}>{score}</span></p>
+            <h2 className="game-over-title arcade-font" style={{ marginTop: '0.5rem' }}>GAME OVER</h2>
+            <p style={{ margin: '0.5rem 0', fontSize: '1rem' }}>Score: <span style={{ color: 'var(--snake-color)' }}>{score}</span></p>
 
             {/* Conditional Render: Initial Entry vs Standard Game Over */}
             {isNewHighScore ? (
@@ -428,8 +428,8 @@ function App() {
               <>
                 <button className="primary-btn" onClick={() => { playSound('select'); resetGame(); }}>PLAY AGAIN</button>
                 {leaderboard.length > 0 && (
-                  <div style={{ marginTop: '2rem', width: '80%', maxWidth: '300px' }}>
-                    <h3 className="arcade-font" style={{ fontSize: '0.8rem', marginBottom: '1rem', color: 'var(--text-dim)', textAlign: 'center' }}>TOP SCORES</h3>
+                  <div style={{ marginTop: '1rem', width: '80%', maxWidth: '300px' }}>
+                    <h3 className="arcade-font" style={{ fontSize: '0.7rem', marginBottom: '0.5rem', color: 'var(--text-dim)', textAlign: 'center' }}>TOP SCORES</h3>
                     <div className="leaderboard-list">
                       {leaderboard.map((entry, idx) => (
                         <div key={idx} className="leaderboard-item">
@@ -522,8 +522,8 @@ function NameEntryForm({ score, leaderboard, setLeaderboard, onComplete }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <p style={{ color: 'var(--snake-color)', fontSize: '0.9rem', marginBottom: '0.5rem' }} className="arcade-font">NEW HIGH SCORE!</p>
-      <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>ENTER INITIALS</p>
+      <p style={{ color: 'var(--snake-color)', fontSize: '0.8rem', marginBottom: '0.3rem' }} className="arcade-font">NEW HIGH SCORE!</p>
+      <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>ENTER INITIALS</p>
 
       <div className="name-entry">
         {nameChars.map((char, i) => (
@@ -538,12 +538,12 @@ function NameEntryForm({ score, leaderboard, setLeaderboard, onComplete }) {
       </div>
 
       {/* Mobile helper buttons for char cycling since swiping is hard here */}
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-        <button className="d-pad-btn" style={{ width: '40px', height: '40px', fontSize: '1rem' }} onClick={() => { playSound('select'); handleMobileCycle(1); }}>↑</button>
-        <button className="d-pad-btn" style={{ width: '40px', height: '40px', fontSize: '1rem' }} onClick={() => { playSound('select'); handleMobileCycle(-1); }}>↓</button>
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <button className="d-pad-small-btn" onClick={() => { playSound('select'); handleMobileCycle(1); }}>↑</button>
+        <button className="d-pad-small-btn" onClick={() => { playSound('select'); handleMobileCycle(-1); }}>↓</button>
       </div>
 
-      <button className="primary-btn" onClick={() => { playSound('select'); submitScore(); }} style={{ marginTop: '1rem', padding: '0.8rem 1.5rem', fontSize: '0.8rem' }}>SUBMIT</button>
+      <button className="primary-btn" onClick={() => { playSound('select'); submitScore(); }} style={{ marginTop: '0.5rem' }}>SUBMIT</button>
     </div>
   );
 }

@@ -400,17 +400,6 @@ h3,
   margin-top: 1rem;
 }
 
-@media (max-width: 768px) {
-  .mobile-controls {
-    display: grid;
-  }
-
-  :root {
-    --cell-size: 16px;
-    /* slightly smaller cells on mobile to fit screen */
-  }
-}
-
 .d-pad-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -426,7 +415,24 @@ h3,
   touch-action: none;
 }
 
-.d-pad-btn:active {
+.d-pad-small-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  backdrop-filter: blur(5px);
+  touch-action: none;
+  margin-bottom: 0.5rem;
+}
+
+.d-pad-btn:active,
+.d-pad-small-btn:active {
   background: rgba(255, 255, 255, 0.2);
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -445,4 +451,45 @@ h3,
 
 .btn-right {
   grid-area: right;
+}
+
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: grid;
+    gap: 8px;
+    margin-top: 0.5rem;
+  }
+
+  .d-pad-btn {
+    width: 55px;
+    height: 55px;
+  }
+
+  :root {
+    --cell-size: 16px;
+  }
+
+  .game-title {
+    font-size: 1.5rem;
+  }
+
+  .game-over-title {
+    font-size: 1.2rem;
+  }
+
+  .name-entry {
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .name-char {
+    width: 35px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .primary-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.7rem;
+  }
 }
