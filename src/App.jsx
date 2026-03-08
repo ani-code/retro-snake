@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './App.css';
 import { playSound } from './audio';
 
-const BOARD_SIZE = 20; // 20x20 grid
+export const BOARD_SIZE = 20; // 20x20 grid
 const INITIAL_SNAKE = [
   { x: 10, y: 10 },
   { x: 10, y: 11 },
@@ -18,7 +18,7 @@ const THEMES = [
   { id: 'monochrome', name: 'GHOST', unlockScore: 300, vars: { '--snake-color': '#e2e8f0', '--snake-head': '#ffffff', '--snake-glow': 'rgba(255, 255, 255, 0.6)', '--food-color': '#94a3b8', '--food-glow': 'rgba(148, 163, 184, 0.8)' } }
 ];
 
-const generateFood = (snake) => {
+export const generateFood = (snake) => {
   let newFood;
   while (true) {
     newFood = {
@@ -30,6 +30,20 @@ const generateFood = (snake) => {
     if (!isOnSnake) break;
   }
   return newFood;
+};
+
+export const checkCollision = (head, currentSnake) => {
+  // Wall collision
+  if (head.x < 0 || head.x >= BOARD_SIZE || head.y < 0 || head.y >= BOARD_SIZE) {
+    return true;
+  }
+  // Self collision
+  for (let segment of currentSnake) {
+    if (head.x === segment.x && head.y === segment.y) {
+      return true;
+    }
+  }
+  return false;
 };
 
 // --- Custom Hooks ---
@@ -110,19 +124,6 @@ function App() {
     setIsCelebrating(false);
   };
 
-  const checkCollision = (head, currentSnake) => {
-    // Wall collision
-    if (head.x < 0 || head.x >= BOARD_SIZE || head.y < 0 || head.y >= BOARD_SIZE) {
-      return true;
-    }
-    // Self collision
-    for (let segment of currentSnake) {
-      if (head.x === segment.x && head.y === segment.y) {
-        return true;
-      }
-    }
-    return false;
-  };
 
   const handleGameOver = () => {
     setGameOver(true);
@@ -342,8 +343,8 @@ function App() {
         {snake.map((segment, index) => {
           // Calculate style based on position
           const style = {
-            left: `${segment.x * 20}px`, // Using standard string since var(--cell-size) doesn't calc in inline easily
-            top: `${segment.y * 20}px`,
+            left: `calc(${segment.x} * var(--cell-size))`,
+            top: `calc(${segment.y} * var(--cell-size))`,
           };
           return (
             <div
@@ -358,8 +359,8 @@ function App() {
         <div
           className="entity food"
           style={{
-            left: `${food.x * 20}px`,
-            top: `${food.y * 20}px`,
+            left: `calc(${food.x} * var(--cell-size))`,
+            top: `calc(${food.y} * var(--cell-size))`,
           }}
         />
 
@@ -368,8 +369,8 @@ function App() {
           <div
             className="entity shrink-food"
             style={{
-              left: `${shrinkFood.x * 20}px`,
-              top: `${shrinkFood.y * 20}px`,
+              left: `calc(${shrinkFood.x} * var(--cell-size))`,
+              top: `calc(${shrinkFood.y} * var(--cell-size))`,
             }}
           />
         )}

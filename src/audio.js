@@ -1,8 +1,11 @@
 // Retro Sound Effects Generator using Web Audio API
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const AudioContext = typeof window !== 'undefined' ? (window.AudioContext || window.webkitAudioContext) : null;
+const audioCtx = AudioContext ? new AudioContext() : null;
 
 export const playSound = (type) => {
+    if (!audioCtx) return;
+
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
